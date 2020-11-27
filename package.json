@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "dev": "nodemon src/app.ts"
+    "dev": "nodemon src/app.ts",
+    "start": "node ./build/App.js",
+    "build": "tsc"
   },
   "dependencies": {
     "@hapi/hapi": "^20.0.1",
@@ -18,8 +20,11 @@
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
     "@types/cors": "^2.8.8",
     "@types/express": "^4.17.9",
+    "@types/hapi__joi": "^17.1.6",
+    "@types/jsonwebtoken": "^8.5.0",
     "@types/mongoose": "^5.10.1",
     "@types/node": "^14.14.10",
     "nodemon": "^2.0.6",
