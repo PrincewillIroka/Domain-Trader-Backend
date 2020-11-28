@@ -14,8 +14,6 @@ const SaltRounds = 8;
 const JWT_SECRET = config.jwtSecret;
 
 export function hashPassword(password: string) {
-  console.log("ttthhh");
-  console.log(password);
   return bcrypt.hashSync(password, bcrypt.genSaltSync(SaltRounds));
 }
 

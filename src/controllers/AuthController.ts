@@ -2,6 +2,13 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import Trader from "../models/Trader";
+import {
+  successMessage,
+  successData,
+  errorMessage,
+  errorData,
+  serverError,
+} from "../utils/helpers/ResponseHelper";
 
 export const login = async (
   request: Request,
@@ -18,13 +25,19 @@ export const signUp = async (
     const { email, password } = request.body;
     await Trader.addTrader(email, password)
       .then((trader) => {
-        response.json({ success: true, trader });
+        response.json(successData(trader));
       })
       .catch((err) => {
-        response.status(422).json({ error: err });
+        if (err && err?.code === 11000) {
+          response
+            .status(422)
+            .json(errorMessage("Trader with this email already exists!"));
+        } else {
+          response.status(422).json(errorData(err));
+        }
       });
   } catch (error) {
-    response.status(422).json({ error: error });
+    response.status(500).json(serverError());
     console.log(error);
   }
 };

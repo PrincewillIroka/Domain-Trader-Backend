@@ -8,7 +8,6 @@ export const loginData = [
       checkFalsy: true,
     })
     .withMessage("Invalid user credentials"),
-  body("notifyOnReply").toBoolean(),
 ];
 
 export const signUpData = [

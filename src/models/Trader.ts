@@ -21,17 +21,10 @@ TraderSchema.method({});
 TraderSchema.statics = {
   addTrader(email: string, password: string): Promise<ITrader> {
     password = hashPassword(password);
-    return this.create({
+    return Trader.create({
       email,
       password,
-    })
-      .exec()
-      .then((trader: ITrader) => {
-        return trader;
-      })
-      .catch((error: Error) => {
-        console.log(error);
-      });
+    });
   },
 };
 
