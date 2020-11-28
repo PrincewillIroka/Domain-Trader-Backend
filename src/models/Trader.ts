@@ -1,10 +1,14 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, Model, Error, Promise } from "mongoose";
 import bcrypt from "bcrypt";
 import { hashPassword } from "../utils/helpers/AuthHelper";
 
 export interface ITrader extends Document {
   email: string;
   password: string;
+}
+
+interface ITraderModelInterface extends Model<ITrader> {
+  addTrader(email: string, password: string): Promise<ITrader>;
 }
 
 const TraderSchema: Schema = new Schema({
@@ -15,11 +19,25 @@ const TraderSchema: Schema = new Schema({
 TraderSchema.method({});
 
 TraderSchema.statics = {
-  addTrader(params: ITrader) {
-    let { email, password } = params;
-    password = hashPassword(password)
+  addTrader(email: string, password: string): Promise<ITrader> {
+    password = hashPassword(password);
+    return this.create({
+      email,
+      password,
+    })
+      .exec()
+      .then((trader: ITrader) => {
+        return trader;
+      })
+      .catch((error: Error) => {
+        console.log(error);
+      });
   },
 };
 
-// Export the model and return your ITrader interface
-export default mongoose.model<ITrader>("Trader", TraderSchema);
+const Trader: ITraderModelInterface = mongoose.model<
+  ITrader,
+  ITraderModelInterface
+>("Trader", TraderSchema);
+
+export default Trader;

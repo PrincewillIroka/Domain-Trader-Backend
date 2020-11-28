@@ -15,8 +15,16 @@ export const signUp = async (
   next: NextFunction
 ) => {
   try {
-    //   const trader = await Trader
+    const { email, password } = request.body;
+    await Trader.addTrader(email, password)
+      .then((trader) => {
+        response.json({ success: true, trader });
+      })
+      .catch((err) => {
+        response.status(422).json({ error: err });
+      });
   } catch (error) {
+    response.status(422).json({ error: error });
     console.log(error);
   }
 };
