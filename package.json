@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "dev": "nodemon src/app.ts",
-    "start": "node ./build/App.js",
+    "dev": "nodemon src/server.ts",
+    "start": "node ./build/Server.js",
     "build": "tsc"
   },
   "dependencies": {
