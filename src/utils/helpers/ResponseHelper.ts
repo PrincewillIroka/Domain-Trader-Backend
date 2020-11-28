@@ -12,8 +12,6 @@ export function updateData(payload: any) {
 }
 
 export function errorMessage(title: any) {
-  console.log("title");
-  console.log(title);
   return { success: false, message: title };
 }
 
