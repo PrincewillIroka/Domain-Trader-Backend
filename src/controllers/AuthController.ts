@@ -14,7 +14,21 @@ export const login = async (
   request: Request,
   response: Response,
   next: NextFunction
-) => {};
+) => {
+  try {
+    const { email, password } = request.body;
+    await Trader.verifyTrader(email, password)
+      .then((trader: any) => {
+        response.json(successData(trader));
+      })
+      .catch((err: Error) => {
+        response.status(422).json(errorMessage(err?.message));
+      });
+  } catch (error) {
+    response.status(500).json(serverError());
+    console.log(error);
+  }
+};
 
 export const signUp = async (
   request: Request,

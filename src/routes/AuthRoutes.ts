@@ -4,7 +4,7 @@ import { loginData, signUpData } from "../validation/AuthValidation";
 import { validator } from "../utils/util";
 const router = express.Router();
 
-router.post("/login", loginData, login);
+router.post("/login", loginData, validator, login);
 router.post("/signUp", signUpData, validator, signUp);
 
 export default router;
