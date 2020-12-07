@@ -29,7 +29,7 @@ export default () => {
       });
     });
 
-    describe("POST /auth/signUp", () => {
+    describe("POST /api/auth/signUp", () => {
       before(async () => {
         await database.connect();
       });
@@ -53,7 +53,7 @@ export default () => {
     });
   });
 
-  describe("POST /auth/login", () => {
+  describe("POST /api/auth/login", () => {
     before(async () => {
       await database.connect();
     });

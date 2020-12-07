@@ -15,7 +15,9 @@ export const getDomainsForSale = async (
   next: NextFunction
 ) => {
   try {
-    const { limit, pageNumber } = request.body;
+    let { limit, pageNumber } = request.body;
+    limit = Number(limit);
+    pageNumber = Number(pageNumber);
     await Domain.find()
       .sort("createdAt")
       .skip(pageNumber)
@@ -24,6 +26,7 @@ export const getDomainsForSale = async (
         response.json(successData(trader));
       })
       .catch((err: Error) => {
+        console.log(err);
         response.status(422).json(errorMessage(err?.message));
       });
   } catch (error) {

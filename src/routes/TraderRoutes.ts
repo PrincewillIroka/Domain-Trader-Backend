@@ -5,6 +5,5 @@ import { validator } from "../utils/util";
 const router = express.Router();
 
 router.get("/getDomainsForSale", domainsForSaleData, validator, getDomainsForSale);
-// router.post("/signUp", signUpData, validator, signUp);
 
 export default router;
