@@ -8,6 +8,7 @@ import {
   errorData,
   serverError,
 } from "../utils/helpers/ResponseHelper";
+import { isDomainExisting } from "../middlewares/RequestAuthentication";
 
 export const getDomainsForSale = async (
   request: Request,
@@ -29,6 +30,34 @@ export const getDomainsForSale = async (
         console.log(err);
         response.status(422).json(errorMessage(err?.message));
       });
+  } catch (error) {
+    response.status(500).json(serverError());
+    console.log(error);
+  }
+};
+
+export const addDomainForSale = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  try {
+    const { traderId, domainName, price, closingDate } = request.body;
+    const domainExists = await isDomainExisting(domainName?.toLowerCase());
+    if (!domainExists) {
+      const domain = await Domain.create({
+        traderId,
+        domainName,
+        price,
+        closingDate,
+      });
+      if (domain) {
+        response.json(successData(domain));
+      }
+      response.json(successMessage("Error while adding domain"));
+    } else {
+      response.json(errorMessage("Domain already exists"));
+    }
   } catch (error) {
     response.status(500).json(serverError());
     console.log(error);

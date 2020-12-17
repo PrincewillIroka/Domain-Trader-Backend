@@ -1,9 +1,10 @@
 import express from "express";
-import { getDomainsForSale } from "../controllers/TraderController";
-import { domainsForSaleData } from "../validation/TraderValidation";
+import { getDomainsForSale, addDomainForSale } from "../controllers/TraderController";
+import { getDomainsForSaleData, addDomainForSaleData } from "../validation/TraderValidation";
 import { validator } from "../utils/util";
 const router = express.Router();
 
-router.get("/getDomainsForSale", domainsForSaleData, validator, getDomainsForSale);
+router.get("/domainsForSale", getDomainsForSaleData, validator, getDomainsForSale);
+router.post("/addDomainForSale", addDomainForSaleData, validator, addDomainForSale);
 
 export default router;

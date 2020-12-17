@@ -12,10 +12,13 @@ interface ITraderModelInterface extends Model<ITrader> {
   verifyTrader(email: string, password: string): any;
 }
 
-const TraderSchema: Schema = new Schema({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-});
+const TraderSchema: Schema = new Schema(
+  {
+    email: { type: String, required: true, unique: true, trim: true },
+    password: { type: String, required: true },
+  },
+  { usePushEach: true, timestamps: true, versionKey: false }
+);
 
 TraderSchema.method({});
 
