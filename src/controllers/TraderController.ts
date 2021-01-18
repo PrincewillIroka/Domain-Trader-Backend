@@ -53,8 +53,9 @@ export const addDomainForSale = async (
       });
       if (domain) {
         response.json(successData(domain));
+      } else {
+        response.json(successMessage("Error while adding domain"));
       }
-      response.json(successMessage("Error while adding domain"));
     } else {
       response.json(errorMessage("Domain already exists"));
     }
